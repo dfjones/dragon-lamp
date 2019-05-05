@@ -43,6 +43,7 @@ def main():
         try:
             UART.discover(device)
             uart = UART(device)
+            print('Writing data...')
             uart.write(b'Hello world!\r\n')
             received = uart.read(timeout_sec=60)
             if received is not None:
