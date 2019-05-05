@@ -23,23 +23,35 @@ def main():
 
     atexit.register(adapter.stop_scan)
 
-    found = False
+    device_found = False
     device = None
     
     print('Searching for UART devices...')
-    while not found:
+    while not device_found:
         found = set(UART.find_devices())
         for d in found:
             print ('Found UART: {0} [{1}]'.format(d.name, d.id))
             if d.name == args.name:
                 device = d
-                found = True
+                device_found = True
                 break
         time.sleep(1)
     
-    if found:
+    if device_found:
         print('connecting to: {0} [{1}]'.format(device.name, device.id))
         device.connect()
+        try:
+            UART.discover(device)
+            uart = UART(device)
+            uart.write(b'Hello world!\r\n')
+            received = uart.read(timeout_sec=60)
+            if received is not None:
+                print('Received: {0}'.format(received))
+            else:
+                print('Received no data!')
+        finally:
+            device.disconnect()
+    
 
 
 ble.initialize()
