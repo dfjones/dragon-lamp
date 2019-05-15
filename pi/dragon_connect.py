@@ -43,13 +43,12 @@ def main():
         try:
             UART.discover(device)
             uart = UART(device)
-            print('Writing data...')
-            uart.write(b'Hello world!\r\n')
-            received = uart.read(timeout_sec=60)
-            if received is not None:
-                print('Received: {0}'.format(received))
-            else:
-                print('Received no data!')
+            print('Writing orange...')
+            uart.write(b'orange\r\n')
+            time.sleep(1)
+            print('Writing blue...')
+            uart.write(b'blue\r\n')
+            time.sleep(1)
         finally:
             device.disconnect()
     
