@@ -79,6 +79,12 @@ void loop() {
     r = orange_r;
     g = orange_g;
     b = orange_b;
+  } else if (strcmp(ble.buffer, "off") == 0) {
+    pixels.clear();
+    r = 0;
+    g = 0;
+    b = 0;
+    pixels.show();
   }
 }
 

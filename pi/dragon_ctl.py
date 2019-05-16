@@ -7,6 +7,9 @@ from Adafruit_BluefruitLE.services import UART
 
 import speech
 
+blue_words = set(["ice", "night", "cool", "cold"])
+orange_words = set(["fire", "dracarys", "khaleesi", "dragon"])
+off_words = set(["goodnight", "off"])
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--name', required=True, help="The name of the bluetooth device to connect to.")
@@ -50,11 +53,15 @@ def main():
                 phrase = speech.listen_and_recognize(recognizer)
                 for word in phrase.split():
                     word = word.strip()
+                    word = word.lower()
                     print("word: ", word)
-                    if word == "ice":
+                    if word in blue_words:
                         uart.write(b'blue\r\n')
-                    elif word == "fire":
+                    elif word in orange_words:
                         uart.write(b'orange\r\n')
+                    elif word in off_words:
+                        uart.write(b'off\r\n')
+
 
         finally:
             device.disconnect()
