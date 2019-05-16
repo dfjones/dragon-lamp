@@ -5,6 +5,8 @@ import argparse
 import Adafruit_BluefruitLE
 from Adafruit_BluefruitLE.services import UART
 
+import speech
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--name', required=True, help="The name of the bluetooth device to connect to.")
@@ -43,12 +45,17 @@ def main():
         try:
             UART.discover(device)
             uart = UART(device)
-            print('Writing orange...')
-            uart.write(b'orange\r\n')
-            time.sleep(1)
-            print('Writing blue...')
-            uart.write(b'blue\r\n')
-            time.sleep(1)
+            recognizer = speech.create_recognizer()
+            while True:
+                phrase = speech.listen_and_recognize(recognizer)
+                for word in phrase.split():
+                    word = word.strip()
+                    print("word: ", word)
+                    if word == "ice":
+                        uart.write(b'blue\r\n')
+                    elif word == "fire":
+                        uart.write(b'orange\r\n')
+
         finally:
             device.disconnect()
     
