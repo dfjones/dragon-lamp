@@ -46,8 +46,10 @@ def main():
         print('connecting to: {0} [{1}]'.format(device.name, device.id))
         device.connect()
         try:
+            print('UART connecting...')
             UART.discover(device)
             uart = UART(device)
+            print('Creating speech recognizer...')
             recognizer = speech.create_recognizer()
             while True:
                 phrase = speech.listen_and_recognize(recognizer)
