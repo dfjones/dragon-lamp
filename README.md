@@ -1,6 +1,6 @@
 # Game of Thrones Dragon Lamp
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/zQ4S6aT5Gy0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[Demo Video](https://youtu.be/zQ4S6aT5Gy0)
 
 This repo contains software for a voice controlled bluetooth wireless dragon lamp.
 
